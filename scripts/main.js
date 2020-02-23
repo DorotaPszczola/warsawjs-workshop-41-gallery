@@ -64,7 +64,7 @@ function displayCurrentTime() {
     setInterval(() => {
          // 1. Get reference to DOM el
          const $clock = document.querySelector("#current-time");
-         
+
          // 2. Get current time from date obj
         const date = new Date(); // obj
         const currentDate = date.toLocaleTimeString('pl'); // string   (toLocaleString - daje date i czas, toLocaleDateString - daje tylko date)
@@ -72,6 +72,26 @@ function displayCurrentTime() {
          // 3. render time into DOM el
          $clock.textContent = currentDate;
     }, 1000);
+}
+
+function randomInteger (from, to) {
+    return Math.round(Math.random() * (to - from) + from);
+}
+function displayRandomPhoto(photos) {
+    // debugger;
+    // 1. get ref to dom
+    const $container = document.querySelector("#random-photo")
+
+    // 2. generate random number
+    const random = randomInteger(0, 2)
+
+    // 3. get photo from collection
+    const randomPhoto = photos[random];
+
+    // 4. render
+    const $randomPhoto = document.createElement('img');
+    $randomPhoto.src = randomPhoto.url;
+    $container.append($randomPhoto);
 }
 
 function main() {
@@ -86,7 +106,7 @@ function main() {
             {url: "https://i.picsum.photos/id/1036/200/300.jpg"},
             {url:"https://i.picsum.photos/id/1035/200/300.jpg"},
             {url:"https://i.picsum.photos/id/1033/200/300.jpg"},
-            null
+            // null
         ];
 
         const isGalleryEmpty = (photos.length === 0);
@@ -97,7 +117,8 @@ function main() {
             displayEmptyGalleryMessage();  // <- tylko wewnątrz tej funkcji zmieniamy tekst wiadomości (parametr funkcji displayMessage() i możemy ją wywołać wiele razy z tym samym tekstem )
         } else {
             renderPhotos(photos);  // <- jako argument wchodzi kolekcja
-        }
+        };
+        displayRandomPhoto(photos);
 
 }, 2000);
 };
