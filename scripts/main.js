@@ -58,10 +58,25 @@ function displayMessage(message) {
 
 function displayEmptyGalleryMessage() {
     displayMessage("Gallery is empty. There are no photos.");
+}
 
+function displayCurrentTime() {
+    setInterval(() => {
+         // 1. Get reference to DOM el
+         const $clock = document.querySelector("#current-time");
+         
+         // 2. Get current time from date obj
+        const date = new Date(); // obj
+        const currentDate = date.toLocaleTimeString('pl'); // string   (toLocaleString - daje date i czas, toLocaleDateString - daje tylko date)
+
+         // 3. render time into DOM el
+         $clock.textContent = currentDate;
+    }, 1000);
 }
 
 function main() {
+
+    displayCurrentTime();
     loader.show();
 
     console.log("main function file works ");
