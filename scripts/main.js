@@ -3,8 +3,9 @@ function renderPhoto(photo) {
 
     // create HTMLImageElement
     const $photo = document.createElement('img');
-    $photo.src = photo;
-    // równoznaczne z linijka wyżej:  $photo.setAttribute('src', photo)
+    // $photo.src = photo;
+    // równoznaczne z linijka wyżej:
+    $photo.setAttribute('src', photo.url)
 
     // Render
     const $photos = document.querySelector("#photos");
@@ -13,8 +14,12 @@ function renderPhoto(photo) {
 
 function renderPhotos(photos) {
     photos.forEach(function (photo) {
-        renderPhoto(photo);
-
+        try {
+            renderPhoto(photo);
+        } catch (err) {
+            console.warn(err);
+            renderPhoto({ url: "https://placehold.co/200x300"});
+        }
     });
 }
 
@@ -59,17 +64,18 @@ function displayEmptyGalleryMessage() {
 function main() {
     console.log("main function file works ");
     const photos = [
-        "https://i.picsum.photos/id/1036/200/300.jpg",
-        "https://i.picsum.photos/id/1035/200/300.jpg",
-        "https://i.picsum.photos/id/1033/200/300.jpg"
+        {url: "https://i.picsum.photos/id/1036/200/300.jpg"},
+        {url:"https://i.picsum.photos/id/1035/200/300.jpg"},
+        {url:"https://i.picsum.photos/id/1033/200/300.jpg"},
+        null
     ];
 
-    const isGalleryEmpty = (photos.length === 0)
+    const isGalleryEmpty = (photos.length === 0);
 
     if (isGalleryEmpty) {
-        renderPhotos(photos);  // <- jako argument wchodzi kolekcja
-    } else {
         displayEmptyGalleryMessage();  // <- tylko wewnątrz tej funkcji zmieniamy tekst wiadomości (parametr funkcji displayMessage() i możemy ją wywołać wiele razy z tym samym tekstem )
+    } else {
+        renderPhotos(photos);  // <- jako argument wchodzi kolekcja
     }
 };
 main();
