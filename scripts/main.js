@@ -62,21 +62,29 @@ function displayEmptyGalleryMessage() {
 }
 
 function main() {
+    loader.show();
+
     console.log("main function file works ");
-    const photos = [
-        {url: "https://i.picsum.photos/id/1036/200/300.jpg"},
-        {url:"https://i.picsum.photos/id/1035/200/300.jpg"},
-        {url:"https://i.picsum.photos/id/1033/200/300.jpg"},
-        null
-    ];
+    setTimeout(function () {
 
-    const isGalleryEmpty = (photos.length === 0);
+        const photos = [
+            {url: "https://i.picsum.photos/id/1036/200/300.jpg"},
+            {url:"https://i.picsum.photos/id/1035/200/300.jpg"},
+            {url:"https://i.picsum.photos/id/1033/200/300.jpg"},
+            null
+        ];
 
-    if (isGalleryEmpty) {
-        displayEmptyGalleryMessage();  // <- tylko wewnątrz tej funkcji zmieniamy tekst wiadomości (parametr funkcji displayMessage() i możemy ją wywołać wiele razy z tym samym tekstem )
-    } else {
-        renderPhotos(photos);  // <- jako argument wchodzi kolekcja
-    }
+        const isGalleryEmpty = (photos.length === 0);
+
+        loader.hide();
+
+        if (isGalleryEmpty) {
+            displayEmptyGalleryMessage();  // <- tylko wewnątrz tej funkcji zmieniamy tekst wiadomości (parametr funkcji displayMessage() i możemy ją wywołać wiele razy z tym samym tekstem )
+        } else {
+            renderPhotos(photos);  // <- jako argument wchodzi kolekcja
+        }
+
+}, 2000);
 };
 main();
 
