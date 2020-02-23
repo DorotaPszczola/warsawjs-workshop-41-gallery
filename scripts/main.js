@@ -106,7 +106,7 @@ function main() {
             {url: "https://i.picsum.photos/id/1036/200/300.jpg"},
             {url:"https://i.picsum.photos/id/1035/200/300.jpg"},
             {url:"https://i.picsum.photos/id/1033/200/300.jpg"},
-            // null
+            null
         ];
 
         const isGalleryEmpty = (photos.length === 0);
@@ -120,7 +120,37 @@ function main() {
         };
         displayRandomPhoto(photos);
 
-}, 2000);
-};
+    }, 2000);
+    window.addEventListener('hashchange', function () {
+        // console.log('hash is changed', location.hash);
+        const $photos = document.querySelector("#photos");
+        const $randomPhoto = document.querySelector("#random-photo");
+
+        switch (location.hash) {
+            case '':
+                // console.warn('hash is empty');
+                // 1. hide random photo container
+                $randomPhoto.style.display = 'none';
+
+                // 2. Show gallery container
+                $photos.style.display = 'block';
+                break;
+
+            case '#random':
+                (location.hash === '#random')
+                // 1. hide photos container
+                $photos.style.display = 'none';
+
+                // 2. Show random photo container
+                $randomPhoto.style.display = 'block';
+                break;
+
+            default:
+            $randomPhoto.style.display = 'none';
+            $photos.style.display = 'none';
+
+        }
+    });
+}
 main();
 
